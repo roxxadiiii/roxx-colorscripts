@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Set the folder containing your scripts
+SCRIPTS_DIR="large"  # Change this to your folder path
+
+# Find all executable files in the folder
+mapfile -t scripts < <(find "$SCRIPTS_DIR" -type f -executable)
+
+# Check if any executable scripts are found
+if [ "${#scripts[@]}" -eq 0 ]; then
+    echo "No executable scripts found in $SCRIPTS_DIR"
+    exit 1
+fi
+
+# Pick a random script
+random_script="${scripts[RANDOM % ${#scripts[@]}]}"
+
+# Launch it
+"$random_script"
+
